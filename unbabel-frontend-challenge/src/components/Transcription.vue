@@ -1,13 +1,16 @@
 <template>
   <div>
-    Hello Main component
+    Transcription
   </div>
 </template>
 
 <script>
   export default {
-    name: 'Home',
-    components: {},
+    name: 'Navbar',
+    components: [],
+    data() {
+      return null
+    },
     computed: {
       name() {
         return this.data

@@ -1,12 +1,12 @@
 <template>
-  <div>
-    Hello Main component
-  </div>
+  <nav>
+    Navbar goes here
+  </nav>
 </template>
 
 <script>
   export default {
-    name: 'Home',
+    name: 'Navbar',
     components: {},
     computed: {
       name() {
