@@ -5,6 +5,5 @@
   "semi": false,
   "bracketSpacing": true,
   "jsxBracketsSameLine": true,
-  "vueIndentScriptAndStyle": true,
-  "endOfLine": "lf"
+  "vueIndentScriptAndStyle": true
 }
