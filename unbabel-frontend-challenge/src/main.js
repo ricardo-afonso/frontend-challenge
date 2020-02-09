@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import BaseIcon from '@/components/base/BaseIcon'
+import BaseIcon from '@/components/shared/BaseIcon'
 
 Vue.config.productionTip = false
 

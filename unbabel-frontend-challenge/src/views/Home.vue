@@ -1,20 +1,17 @@
 <template>
   <div>
     Hello Main component
+    <TranscriptionList />
   </div>
 </template>
 
 <script>
+  import TranscriptionList from '@/components/transcriptions/TranscriptionList.vue'
+
   export default {
     name: 'Home',
-    components: {},
-    computed: {
-      name() {
-        return this.data
-      }
-    },
-    methods: {
-      metohodName() {}
+    components: {
+      TranscriptionList
     }
   }
 </script>

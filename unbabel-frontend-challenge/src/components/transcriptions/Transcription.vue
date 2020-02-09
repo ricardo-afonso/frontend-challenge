@@ -1,25 +1,22 @@
 <template>
   <div>
-    Transcription
+    <BaseIcon name="person" />
+    <EditableText v-model="transcription.voice" />
+    <EditableText v-model="transcription.text" type="textarea" />
+    <hr />
   </div>
 </template>
 
 <script>
+  import EditableText from '@/components/shared/EditableText.vue'
+
   export default {
-    name: 'Navbar',
-    components: [],
-    data() {
-      return null
+    name: 'Transcription',
+    props: {
+      transcription: Object
     },
-    computed: {
-      name() {
-        return this.data
-      }
-    },
-    methods: {
-      metohodName() {}
-    }
+    components: { EditableText }
   }
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped lang="scss"></style>

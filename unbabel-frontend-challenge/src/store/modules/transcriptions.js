@@ -9,7 +9,7 @@ export const state = {
 
 export const mutations = {
   LOAD_TRANSCRIPTIONS(state, data) {
-    state.transcriptions.push(data)
+    state.transcriptions = data
   },
   ADD_SINGLE_TRANSCRIPTION(state) {
     state.transcriptions.push({
@@ -29,18 +29,18 @@ export const mutations = {
 
 export const actions = {
   fetchTranscriptions({ commit }) {
-    console.log('CALLED TRANS')
     commit('TOGGLE_LOADING')
     TranscriptionService.getTranscriptions()
       .then(response => {
         commit('LOAD_TRANSCRIPTIONS', response.data)
+        commit('TOGGLE_LOADING')
       })
       .catch(error => {
         console.log(error)
+        commit('TOGGLE_LOADING')
       })
   },
   uploadTranscriptions() {
-    console.log('uploading')
     TranscriptionService.postTranscriptions(state.transcriptions)
   }
 }
