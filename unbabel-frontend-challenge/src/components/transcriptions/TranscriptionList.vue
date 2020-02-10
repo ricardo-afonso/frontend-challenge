@@ -18,8 +18,7 @@
 
 <script>
   import Transcription from '@/components/transcriptions/Transcription.vue'
-  import { mapState } from 'vuex'
-  import { mapActions } from 'vuex'
+  import { mapState, mapActions } from 'vuex'
 
   export default {
     components: {

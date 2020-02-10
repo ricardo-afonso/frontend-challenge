@@ -1,12 +1,12 @@
 <template>
   <div>
     <div v-if="!editing">
-      <span class="text" @click="enableEditing">{{ value }}</span>
+      <span class="text" @click="enableEditing">{{ itemText }}</span>
     </div>
     <div v-if="editing">
-      <input v-if="type !== 'textarea'" type="text" v-model="newValue" />
+      <input v-if="field === 'voice'" type="text" v-model="newValue" />
       <textarea
-        v-if="type === 'textarea'"
+        v-if="field === 'text'"
         ref="input"
         v-model="newValue"
       ></textarea>
@@ -17,12 +17,14 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex'
+
   export default {
     name: 'EditableText',
     props: {
       value: String,
-      transcription: Object,
-      type: String
+      id: Number,
+      field: String
     },
     data() {
       return {
@@ -31,17 +33,37 @@
       }
     },
     methods: {
-      enableEditing: function() {
+      ...mapActions('transcriptions', ['editTranscription']),
+      enableEditing() {
         this.newValue = this.value
         this.editing = true
       },
-      disableEditing: function() {
+      disableEditing() {
         this.newValue = null
         this.editing = false
       },
-      saveEdit: function() {
-        this.value = this.newValue
-        this.disableEditing()
+      saveEdit() {
+        this.editTranscription({
+          field: this.field,
+          id: this.id,
+          text: this.newValue
+        })
+        console.log('THE LOG:', {
+          field: this.field,
+          id: this.id,
+          text: this.newValue
+        }),
+          this.disableEditing()
+      }
+    },
+    computed: {
+      itemText() {
+        return (
+          this.value ||
+          (this.field === 'voice'
+            ? 'Add a voice for the transcription'
+            : "Add the transcription's text")
+        )
       }
     }
   }

@@ -2,8 +2,16 @@
   <div>
     <Checkbox :id="transcription.id" />
     <BaseIcon name="person" />
-    <EditableText v-model="transcription.voice" />
-    <EditableText v-model="transcription.text" type="textarea" />
+    <EditableText
+      v-model="transcription.voice"
+      :id="transcription.id"
+      field="voice"
+    />
+    <EditableText
+      v-model="transcription.text"
+      :id="transcription.id"
+      field="text"
+    />
     <hr />
   </div>
 </template>

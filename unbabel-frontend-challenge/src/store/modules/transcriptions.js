@@ -13,11 +13,18 @@ export const mutations = {
   },
   ADD_SINGLE_TRANSCRIPTION(state) {
     state.transcriptions.push({
-      id: Math.floor(100 + Math.random() * 10000000) //TODO: Fetch last item's ID and ++
+      id: Math.floor(100 + Math.random() * 10000000), //TODO: Fetch last item's ID and ++
+      voice: '',
+      text: ''
     })
   },
-  EDIT_TRANSCRIPTION(state, { index, field, text }) {
-    state.transcriptions[index][field] = text
+  EDIT_TRANSCRIPTION(state, { field, id, text }) {
+    let updatedTranscription = state.transcriptions.find(
+      transcription => transcription.id == id
+    )
+    console.log('U', updatedTranscription)
+    console.log('T', text)
+    updatedTranscription[field] = text
   },
   // DELETE_TRANSCRIPTION (state, {index}) {
   //   state.transcriptions.filter(index thing)
@@ -45,5 +52,8 @@ export const actions = {
   },
   addSingleTranscription({ commit }) {
     commit('ADD_SINGLE_TRANSCRIPTION')
+  },
+  editTranscription({ commit }, { field, id, text }) {
+    commit('EDIT_TRANSCRIPTION', { field, id, text })
   }
 }
