@@ -42,5 +42,8 @@ export const actions = {
   },
   uploadTranscriptions() {
     TranscriptionService.postTranscriptions(state.transcriptions)
+  },
+  addSingleTranscription({ commit }) {
+    commit('ADD_SINGLE_TRANSCRIPTION')
   }
 }

@@ -15,12 +15,6 @@
 
   export default {
     name: 'Navbar',
-    components: {},
-    computed: {
-      name() {
-        return this.data
-      }
-    },
     methods: {
       ...mapActions('transcriptions', [
         'fetchTranscriptions',

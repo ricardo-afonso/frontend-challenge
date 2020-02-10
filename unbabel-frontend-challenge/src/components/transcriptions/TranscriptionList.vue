@@ -8,12 +8,18 @@
         :transcription="transcription"
       />
     </div>
+    <BaseIcon
+      name="add-row"
+      clickable
+      @click.native="addSingleTranscription()"
+    />
   </div>
 </template>
 
 <script>
   import Transcription from '@/components/transcriptions/Transcription.vue'
   import { mapState } from 'vuex'
+  import { mapActions } from 'vuex'
 
   export default {
     components: {
@@ -21,6 +27,9 @@
     },
     computed: {
       ...mapState(['transcriptions'])
+    },
+    methods: {
+      ...mapActions('transcriptions', ['addSingleTranscription'])
     }
   }
 </script>

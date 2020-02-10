@@ -1,6 +1,5 @@
 <template>
   <div>
-    Hello Main component
     <TranscriptionList />
   </div>
 </template>
