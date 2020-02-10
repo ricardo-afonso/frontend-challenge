@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Checkbox :id="transcription.id" />
     <BaseIcon name="person" />
     <EditableText v-model="transcription.voice" />
     <EditableText v-model="transcription.text" type="textarea" />
