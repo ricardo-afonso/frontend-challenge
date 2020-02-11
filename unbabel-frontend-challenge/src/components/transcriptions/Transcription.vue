@@ -62,5 +62,8 @@
       visibility: hidden;
       cursor: pointer;
     }
+    &.-error {
+      border: 1px solid $color-negative;
+    }
   }
 </style>

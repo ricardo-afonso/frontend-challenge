@@ -4,6 +4,7 @@ export const namespaced = true
 
 export const state = {
   transcriptions: [],
+  //trascriptionError: [],
   loading: false
 }
 
@@ -35,20 +36,81 @@ export const mutations = {
 }
 
 export const actions = {
-  fetchTranscriptions({ commit }) {
+  fetchTranscriptions({ commit, dispatch }) {
     commit('TOGGLE_LOADING')
     TranscriptionService.getTranscriptions()
       .then(response => {
         commit('LOAD_TRANSCRIPTIONS', response.data)
         commit('TOGGLE_LOADING')
+        dispatch(
+          'notification/add',
+          {
+            type: 'success',
+            message: 'Transcriptions succesfully loaded'
+          },
+          { root: true }
+        )
       })
       .catch(error => {
-        console.log(error)
         commit('TOGGLE_LOADING')
+        dispatch(
+          'notification/add',
+          {
+            type: 'error',
+            message: 'Problem loading transcriptions: ' + error.message
+          },
+          { root: true }
+        )
       })
   },
-  uploadTranscriptions() {
+  uploadTranscriptions({ dispatch }) {
+    if (state.transcriptions.length < 1) {
+      return dispatch(
+        'notification/add',
+        {
+          type: 'error',
+          message: 'Please add at least one transcription before uploading'
+        },
+        { root: true }
+      )
+    }
+
+    let emptyValues = state.transcriptions.map(
+      transcription => !Object.values(transcription).includes('')
+    )
+
+    if (emptyValues.includes(false)) {
+      return dispatch(
+        'notification/add',
+        {
+          type: 'error',
+          message: 'There are empty or invalid fields.'
+        },
+        { root: true }
+      )
+    }
+
     TranscriptionService.postTranscriptions(state.transcriptions)
+      .then(response => {
+        dispatch(
+          'notification/add',
+          {
+            type: 'success',
+            message: 'Uploaded succesfully, Status: ' + response.statusText
+          },
+          { root: true }
+        )
+      })
+      .catch(error => {
+        dispatch(
+          'notification/add',
+          {
+            type: 'error',
+            message: 'Problem loading transcriptions:' + error.message
+          },
+          { root: true }
+        )
+      })
   },
   addSingleTranscription({ commit }) {
     commit('ADD_SINGLE_TRANSCRIPTION')

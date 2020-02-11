@@ -2,15 +2,18 @@
   <div id="app">
     <NavBar />
     <router-view />
+    <NotificationWrap />
   </div>
 </template>
 
 <script>
   import NavBar from '@/components/NavBar.vue'
+  import NotificationWrap from '@/components/shared/NotificationWrap.vue'
 
   export default {
     components: {
-      NavBar
+      NavBar,
+      NotificationWrap
     }
   }
 </script>
