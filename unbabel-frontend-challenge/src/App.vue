@@ -15,6 +15,7 @@
   }
 </script>
 
-<style lang="scss">
-  @import 'src/assets/scss/style.scss';
+<style>
+  /* Load normalize without scoped attribute */
+  @import './assets/scss/_normalize.scss';
 </style>

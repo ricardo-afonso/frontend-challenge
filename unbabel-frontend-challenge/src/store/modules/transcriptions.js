@@ -20,15 +20,15 @@ export const mutations = {
   },
   EDIT_TRANSCRIPTION(state, { field, id, text }) {
     let updatedTranscription = state.transcriptions.find(
-      transcription => transcription.id == id
+      transcription => transcription.id === id
     )
-    console.log('U', updatedTranscription)
-    console.log('T', text)
     updatedTranscription[field] = text
   },
-  // DELETE_TRANSCRIPTION (state, {index}) {
-  //   state.transcriptions.filter(index thing)
-  // },
+  DELETE_TRANSCRIPTION(state, id) {
+    state.transcriptions = state.transcriptions.filter(
+      transcription => transcription.id !== id
+    )
+  },
   TOGGLE_LOADING(state) {
     state.loading = !state.loading
   }
@@ -55,5 +55,8 @@ export const actions = {
   },
   editTranscription({ commit }, { field, id, text }) {
     commit('EDIT_TRANSCRIPTION', { field, id, text })
+  },
+  deleteTranscription({ commit }, id) {
+    commit('DELETE_TRANSCRIPTION', id)
   }
 }

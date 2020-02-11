@@ -1,0 +1,13 @@
+// General layout styles
+
+body { 
+  background: $color-background;
+}
+
+.container {
+  margin-right: auto; 
+  margin-left:  auto;
+  max-width: $max-width; 
+  padding-right: 10px; 
+  padding-left:  10px;
+}

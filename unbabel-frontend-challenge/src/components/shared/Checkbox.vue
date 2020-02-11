@@ -22,25 +22,35 @@
 <style lang="scss" scoped>
   //TODO: Add colors from global style
   .checkbox {
+    display: flex;
+    vertical-align: top;
+    margin-right: 15px;
+    cursor: pointer;
     &__input {
       opacity: 0;
       &:checked {
         + .checkbox__label:after {
           content: '';
         }
+        + .checkbox__label:before {
+          background: $color-checkbox;
+        }
       }
     }
     &__label {
       position: relative;
       display: inline-block;
-      padding-left: 22px;
+      padding-left: 30px;
+      cursor: pointer;
       &:before {
         position: absolute;
         content: '';
         display: inline-block;
+        box-sizing: border-box;
         height: 16px;
         width: 16px;
-        border: 1px solid;
+        border: 2px solid $color-checkbox;
+        border-radius: 3px;
         left: 0px;
         top: 3px;
       }
@@ -48,8 +58,9 @@
         position: absolute;
         content: none;
         display: inline-block;
-        height: 5px;
-        width: 9px;
+        height: 4px;
+        width: 7px;
+        color: #ffffff;
         border-left: 2px solid;
         border-bottom: 2px solid;
         transform: rotate(-45deg);

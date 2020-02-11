@@ -1,17 +1,24 @@
 <template>
-  <div>
+  <div class="editable-text">
     <div v-if="!editing">
-      <span class="text" @click="enableEditing">{{ itemText }}</span>
+      <span :class="fieldTypeClass" @click="enableEditing">{{ itemText }}</span>
     </div>
     <div v-if="editing">
-      <input v-if="field === 'voice'" type="text" v-model="newValue" />
+      <input
+        v-if="field === 'voice'"
+        ref="input"
+        type="text"
+        v-model="newValue"
+        @blur="clickOutside"
+      />
       <textarea
         v-if="field === 'text'"
         ref="input"
         v-model="newValue"
+        @blur="clickOutside"
       ></textarea>
-      <button class="input-btn --cancel" @click="disableEditing">Cancel</button>
-      <button class="input-btn --save" @click="saveEdit">Save</button>
+      <button class="editable-text__btn -cancel" @click="disableEditing" />
+      <button class="editable-text__btn -save" @click="saveEdit" />
     </div>
   </div>
 </template>
@@ -37,6 +44,9 @@
       enableEditing() {
         this.newValue = this.value
         this.editing = true
+        window.setTimeout(() => {
+          this.$refs.input.focus()
+        }, 100)
       },
       disableEditing() {
         this.newValue = null
@@ -48,12 +58,19 @@
           id: this.id,
           text: this.newValue
         })
-        console.log('THE LOG:', {
-          field: this.field,
-          id: this.id,
-          text: this.newValue
-        }),
-          this.disableEditing()
+        this.disableEditing()
+      },
+      clickOutside() {
+        if (
+          event &&
+          event.relatedTarget &&
+          event.relatedTarget.localName === 'button'
+        ) {
+          // Keep going - event will trigger on the button itself.
+        } else {
+          this.saveEdit()
+          // a bit hacky, but not all DOM clicks produce an event.
+        }
       }
     },
     computed: {
@@ -64,9 +81,49 @@
             ? 'Add a voice for the transcription'
             : "Add the transcription's text")
         )
+      },
+      fieldTypeClass() {
+        return `editable-text__${this.field}`
       }
     }
   }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+  .editable-text {
+    line-height: 22px;
+    cursor: pointer;
+    &__voice {
+      @include voice-text;
+    }
+    &__text {
+      @include transcription-text;
+    }
+    input[type='text'] {
+      @include voice-text;
+      width: 100%;
+    }
+    textarea {
+      @include transcription-text;
+      width: 100%;
+      height: 150px;
+      resize: vertical;
+    }
+    &__btn {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      &:hover {
+        box-shadow: 0 1px 0 #0000004a;
+      }
+      &.-save:after {
+        content: '\2714';
+        color: $color-positive-dark;
+      }
+      &.-cancel:after {
+        content: '\2716';
+        color: $color-negative-dark;
+      }
+    }
+  }
+</style>

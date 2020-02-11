@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h1>Transcription list</h1>
+  <div class="container transcriptions">
     <div v-if="transcriptions.transcriptions.length">
       <Transcription
         v-for="transcription in transcriptions.transcriptions"
@@ -8,11 +7,13 @@
         :transcription="transcription"
       />
     </div>
-    <BaseIcon
-      name="add-row"
-      clickable
-      @click.native="addSingleTranscription()"
-    />
+    <div class="transcriptions__add">
+      <BaseIcon
+        name="add-row"
+        clickable
+        @click.native="addSingleTranscription()"
+      />
+    </div>
   </div>
 </template>
 
@@ -32,3 +33,13 @@
     }
   }
 </script>
+
+<style scope lang="scss">
+  .transcriptions {
+    max-width: $content-width;
+    &__add {
+      margin: 35px 0;
+      text-align: center;
+    }
+  }
+</style>

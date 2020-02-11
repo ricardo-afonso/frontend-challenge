@@ -1,0 +1,23 @@
+
+// Montserrat Medium and Semibold
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500,600&display=swap');
+
+// Open Sans Regular
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+
+@mixin voice-text {
+  font-family: Montserrat;
+  font-weight: $font-weight-semibold;
+  font-size: $font-size-base;
+  color: $color-voice;
+  line-height: $line-height-base;
+}
+
+@mixin transcription-text {
+  font-family: Open Sans;
+  font-weight: $font-weight-regular;
+  font-size: $font-size-base;
+  color: $color-text;
+  line-height: $line-height-base;
+}
