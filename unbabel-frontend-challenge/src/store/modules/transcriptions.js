@@ -5,6 +5,7 @@ export const namespaced = true
 export const state = {
   transcriptions: [],
   //trascriptionError: [],
+  deletedTranscriptionsId: [],
   loading: false
 }
 
@@ -13,8 +14,23 @@ export const mutations = {
     state.transcriptions = data
   },
   ADD_SINGLE_TRANSCRIPTION(state) {
+    let newId
+    if (state.deletedTranscriptionsId.length < 1) {
+      newId = state.transcriptions.length + 1
+    } else {
+      let lastArrItem = state.transcriptions[state.transcriptions.length - 1]
+        ? state.transcriptions[state.transcriptions.length - 1].id
+        : 0
+      let highestDelItem = Math.max(...state.deletedTranscriptionsId)
+      if (lastArrItem > highestDelItem) {
+        newId = lastArrItem + 1
+      } else {
+        newId = highestDelItem + 1
+      }
+    }
+
     state.transcriptions.push({
-      id: Math.floor(100 + Math.random() * 10000000), //TODO: Fetch last item's ID and ++
+      id: newId,
       voice: '',
       text: ''
     })
@@ -26,6 +42,7 @@ export const mutations = {
     updatedTranscription[field] = text
   },
   DELETE_TRANSCRIPTION(state, id) {
+    state.deletedTranscriptionsId.push(id)
     state.transcriptions = state.transcriptions.filter(
       transcription => transcription.id !== id
     )

@@ -20,7 +20,6 @@
 </script>
 
 <style lang="scss" scoped>
-  //TODO: Add colors from global style
   .checkbox {
     display: flex;
     vertical-align: top;
